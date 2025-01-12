@@ -18,6 +18,7 @@ class DrawView(context: Context) : View(context) {
     private var screenWidth = 0
     private var screenHeight = 0
     private var score = 0
+    private var isGameOver = false
 
     init {
         paint.isAntiAlias = true
@@ -27,13 +28,16 @@ class DrawView(context: Context) : View(context) {
         super.onSizeChanged(w, h, oldw, oldh)
         screenWidth = w
         screenHeight = h
-        objectX = Random.nextFloat() * (screenWidth - 100)
-        objectY = 0f
-        basketX = (screenWidth / 2 - basketWidth / 2)
+        resetGame()
     }
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
+
+        if (isGameOver) {
+            drawGameOverScreen(canvas)
+            return
+        }
 
         // Draw background
         canvas.drawColor(Color.WHITE)
@@ -60,9 +64,9 @@ class DrawView(context: Context) : View(context) {
         // Update object position
         objectY += 15
         if (objectY > screenHeight) {
-            // Reset object if it falls off the screen
-            objectY = 0f
-            objectX = Random.nextFloat() * (screenWidth - 100)
+            isGameOver = true
+            invalidate()
+            return
         }
 
         // Check collision
@@ -71,21 +75,42 @@ class DrawView(context: Context) : View(context) {
             objectX < basketX + basketWidth
         ) {
             score++
-            objectY = 0f
-            objectX = Random.nextFloat() * (screenWidth - 100)
+            resetObjectPosition()
         }
 
-        // Invalidate to redraw
         invalidate()
     }
 
     override fun onTouchEvent(event: MotionEvent): Boolean {
-        if (event.action == MotionEvent.ACTION_MOVE) {
+        if (isGameOver && event.action == MotionEvent.ACTION_DOWN) {
+            resetGame()
+        } else if (!isGameOver && event.action == MotionEvent.ACTION_MOVE) {
             basketX = event.x - basketWidth / 2
             if (basketX < 0) basketX = 0f
             if (basketX + basketWidth > screenWidth) basketX = (screenWidth - basketWidth)
-            invalidate()
         }
         return true
+    }
+
+    private fun resetObjectPosition() {
+        objectY = 0f
+        objectX = Random.nextFloat() * (screenWidth - 100)
+    }
+
+    private fun resetGame() {
+        objectX = Random.nextFloat() * (screenWidth - 100)
+        objectY = 0f
+        basketX = (screenWidth / 2 - basketWidth / 2)
+        score = 0
+        isGameOver = false
+        invalidate()
+    }
+
+    private fun drawGameOverScreen(canvas: Canvas) {
+        paint.color = Color.BLACK
+        paint.textSize = 80f
+        canvas.drawText("Game Over", (screenWidth / 2 - 200).toFloat(), (screenHeight / 2).toFloat(), paint)
+        paint.textSize = 60f
+        canvas.drawText("Tap to Restart", (screenWidth / 2 - 180).toFloat(), (screenHeight / 2 + 100).toFloat(), paint)
     }
 }
