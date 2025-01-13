@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.catchtheobjectgame">
 
     <application
@@ -10,14 +11,31 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CatchTheObjectGame">
 
+        <!-- Головне меню (LAUNCHER) -->
         <activity
-            android:name=".MainActivity"
+            android:name=".MainMenuActivity"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+
+        <!-- Активність з грою (DrawView) -->
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"/>
+
+        <!-- Активність з відображенням списку результатів -->
+        <activity
+            android:name=".ScoreboardActivity"
+            android:exported="true"/>
+
+        <!-- Активність з деталями конкретного запису -->
+        <activity
+            android:name=".DetailActivity"
+            android:exported="true"/>
+
     </application>
 
 </manifest>
