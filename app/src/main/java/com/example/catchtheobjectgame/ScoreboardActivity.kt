@@ -31,6 +31,7 @@ class ScoreboardActivity : AppCompatActivity() {
     }
 
     private fun loadScoresFromDb() {
+        // Використовуємо корутини:
         CoroutineScope(Dispatchers.IO).launch {
             val dao = ScoreDatabase.getDatabase(this@ScoreboardActivity).scoreDao()
             val scores = dao.getAllScores()

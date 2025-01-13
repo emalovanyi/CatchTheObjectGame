@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="Theme.CatchTheObjectGame" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here -->
+        <!-- Тут будь-які ваші атрибути теми -->
         <item name="android:windowFullscreen">true</item>
-        <!-- Colors, textAppearance, etc. go here if needed -->
+        <!-- Можете додати власні <item> ... </item> -->
     </style>
+
 </resources>

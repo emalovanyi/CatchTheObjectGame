@@ -7,15 +7,13 @@ import androidx.room.Query
 
 @Dao
 interface ScoreDao {
-    @Insert
-    fun insertScore(score: ScoreEntity): Long
 
-    @Query("SELECT * FROM scores")
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    fun insertScore(score: ScoreEntity)
+
+    @Query("SELECT * FROM scores ORDER BY id DESC")
     fun getAllScores(): List<ScoreEntity>
 
-    @Query("SELECT * FROM scores WHERE id = :id LIMIT 1")
-    fun getScoreById(id: Int): ScoreEntity?
+    @Query("SELECT * FROM scores WHERE id = :scoreId LIMIT 1")
+    fun getScoreById(scoreId: Int): ScoreEntity?
 }
-
-
-

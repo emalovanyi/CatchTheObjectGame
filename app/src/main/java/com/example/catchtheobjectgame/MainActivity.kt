@@ -10,25 +10,22 @@ import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
-    // Приклад змінної для збереження фінального рахунку
+    // Наприклад, змінна для збереження рахунку
     private var finalScore: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        // Тут підключається activity_main.xml, у якому <DrawView />
         setContentView(R.layout.activity_main)
-        // activity_main містить ваш <com.example.catchtheobjectgame.DrawView ... />
 
-        // Якщо ваша логіка рахунку зберігається у DrawView, можна через колбек отримувати score
-        // або зберігати рахунок всередині MainActivity. Припустимо, що коли гра закінчується,
-        // викликається метод gameOver(finalScore).
+        // Тут можна додати логіку, якщо треба
     }
 
+    // Викличеться при Game Over
     fun gameOver(score: Int) {
         finalScore = score
-        // Зберегти score у Room:
         saveScoreToDb(finalScore)
-        // Закрити активність або перейти на інший екран
-        finish()
+        finish() // або перехід кудись ще
     }
 
     private fun saveScoreToDb(score: Int) {
@@ -37,7 +34,9 @@ class MainActivity : AppCompatActivity() {
             dateTime = System.currentTimeMillis()
         )
         CoroutineScope(Dispatchers.IO).launch {
-            ScoreDatabase.getDatabase(this@MainActivity).scoreDao().insertScore(entity)
+            ScoreDatabase.getDatabase(this@MainActivity)
+                .scoreDao()
+                .insertScore(entity)
         }
     }
 }

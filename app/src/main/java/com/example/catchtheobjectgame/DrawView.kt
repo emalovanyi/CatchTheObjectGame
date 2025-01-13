@@ -32,19 +32,18 @@ class DrawView @JvmOverloads constructor(
         super.onSizeChanged(w, h, oldw, oldh)
         screenWidth = w
         screenHeight = h
-        resetObjectPosition()
     }
 
     override fun onDraw(canvas: Canvas) {
         super.onDraw(canvas)
-        // Draw background
+        // Фон
         canvas.drawColor(Color.WHITE)
 
-        // Draw falling object
+        // "Шарік"
         paint.color = Color.RED
         canvas.drawCircle(objectX, objectY, 50f, paint)
 
-        // Draw basket
+        // "Кошик"
         paint.color = Color.BLUE
         canvas.drawRect(
             basketX,
@@ -54,20 +53,20 @@ class DrawView @JvmOverloads constructor(
             paint
         )
 
-        // Draw score
+        // Рахунок
         paint.color = Color.BLACK
         paint.textSize = 60f
         canvas.drawText("Score: $score", 50f, 100f, paint)
 
-        // Move object
+        // Рухати "шарік" вниз
         objectY += 15
         if (objectY > screenHeight) {
-            // Reset if object falls off screen
             resetObjectPosition()
         }
 
-        // Collision
-        if (objectY > screenHeight - basketHeight &&
+        // Перевірка зіткнення
+        if (
+            objectY > screenHeight - basketHeight &&
             objectX > basketX &&
             objectX < basketX + basketWidth
         ) {
@@ -82,7 +81,9 @@ class DrawView @JvmOverloads constructor(
         if (event.action == MotionEvent.ACTION_MOVE) {
             basketX = event.x - basketWidth / 2
             if (basketX < 0) basketX = 0f
-            if (basketX + basketWidth > screenWidth) basketX = (screenWidth - basketWidth)
+            if (basketX + basketWidth > screenWidth) {
+                basketX = (screenWidth - basketWidth)
+            }
         }
         return true
     }

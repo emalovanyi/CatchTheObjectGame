@@ -13,11 +13,13 @@ class MainMenuActivity : AppCompatActivity() {
         val startGameButton = findViewById<Button>(R.id.btnStartGame)
         val scoreboardButton = findViewById<Button>(R.id.btnScoreboard)
 
+        // Запуск гри
         startGameButton.setOnClickListener {
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
 
+        // Переходимо до списку результатів (Scoreboard)
         scoreboardButton.setOnClickListener {
             val intent = Intent(this, ScoreboardActivity::class.java)
             startActivity(intent)

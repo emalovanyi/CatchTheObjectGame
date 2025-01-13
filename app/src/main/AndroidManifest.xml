@@ -16,26 +16,25 @@
             android:name=".MainMenuActivity"
             android:exported="true">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <!-- Активність з грою (DrawView) -->
         <activity
             android:name=".MainActivity"
-            android:exported="true"/>
+            android:exported="true" />
 
-        <!-- Активність з відображенням списку результатів -->
+        <!-- Активність з відображенням списку результатів (Scoreboard) -->
         <activity
             android:name=".ScoreboardActivity"
-            android:exported="true"/>
+            android:exported="true" />
 
-        <!-- Активність з деталями конкретного запису -->
+        <!-- Активність з деталями одного запису -->
         <activity
             android:name=".DetailActivity"
-            android:exported="true"/>
+            android:exported="true" />
 
     </application>
-
 </manifest>

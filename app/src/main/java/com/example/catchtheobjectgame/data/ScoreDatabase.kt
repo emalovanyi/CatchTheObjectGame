@@ -7,7 +7,6 @@ import androidx.room.RoomDatabase
 
 @Database(entities = [ScoreEntity::class], version = 1, exportSchema = false)
 abstract class ScoreDatabase : RoomDatabase() {
-
     abstract fun scoreDao(): ScoreDao
 
     companion object {
